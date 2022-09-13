@@ -8,6 +8,8 @@
 [*Virtual Enviroment*](https://docs.python.org/3/library/venv.html#:~:text=A%20virtual%20environment%20is%20a,part%20of%20your%20operating%20system.) pada Python adalah Python *environment* sedemikian hingga Python interpreter, libraries, dan scripts yang di-*install* pada proyek kita akan terisolasi dari *virtual environment* lainnya dan juga *libraries* yang ter-*install* pada "system" Python. Tujuan Penggunaan *virtual environment* pada proyek Django adalah untuk memisahkan pengaturan dan mengisolasi *package/dependencies* yang di-*install* pada setiap proyek Django sehingga proyek Django lainnya tidak terpengaruh ketika suatu perubahan dilakukan pada proyek Django tertentu. Oleh karena itu, setiap proyek Django yang kita kembangkan disarankan memiliki *virtual environment*.
 
 > Perhatikan bahwa kita tetap dapat membuat aplikasi web berbasis Django tanpa menggunakan *virtual environment*. Namun, hal ini tidak disarankan karena versi dari *package/dependencies* yang dibutuhkan untuk proyek Django tersebut bisa bertabrakan dengan versi yang telah ter-*install* pada "system" Python.
+
+> TL; DR *Virtual environment* dimanfaatkan agar tidak ada konflik antara *requirements* pada proyek Django kita dengan *requirements* dari proyek Django lainnya maupun dengan *libraries* yang telah ter-*install* pada "sistem" Python. 
 ***
 
 ## Implementasi
