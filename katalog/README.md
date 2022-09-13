@@ -81,6 +81,8 @@ Tujuan Pemetaan data ke dalam HTML dengan sintaks dari Django untuk pemetaan dat
     ...
     ```
 
+    Selain itu, kita harus melakukan perintah `python manage.py makemigrations` untuk mempersiapkan migrasi skema model dan `python manage.py migrate` untuk menerapkan skema model yang telah dibuat ke dalam *database* Django lokal.
+
 4. Deploy Aplikasi Django ke HeroKu<br>
 *Deployment* ke HeroKu terhadap aplikasi yang telah dibuat bertujuan agar aplikasi tersebut dapat diakses melalui internet. Kita akan memanfaatkan *runner* dari GitHub Actions dan Heroku sebagai *host* dari aplikasi yang akan kita *deploy*.
 
