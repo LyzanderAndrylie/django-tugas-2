@@ -5,6 +5,15 @@ from django.http import HttpResponse
 from django.core import serializers
 
 # Create your views here.
+def show_menu(request):
+    context = {
+        "html_path": "./html",
+        "xml_path": "./xml",
+        "json_path": "./json"
+    }
+
+    return render(request, 'menu.html', context)
+
 def show_mywatchlist(request):
     data_mywatchlist = MyWatchList.objects.all()
     context = {
