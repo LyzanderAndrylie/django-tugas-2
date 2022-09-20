@@ -181,3 +181,13 @@ Tujuan pembuatan *routing* adalah agar data di atas dapat diakses melalui URL ya
     release: sh -c 'python manage.py migrate && python manage.py loaddata initial_catalog_data.json && python manage.py loaddata initial_mywatchlist_data.json'
     web: gunicorn project_django.wsgi --log-file -
     ```
+
+8. Penambahan *unit* test pada `test.py`
+Tujuan penambahan tersebut adalah untuk menguji bahwa URL dapat mengembalikan respon `HTTP 200 OK`.
+
+
+# Pengaksesan URL menggunakan Postman
+![Akses URL http://localhost:8000/mywatchlist/html](./resources/ss_url_1.jpg)
+![Akses URL http://localhost:8000/mywatchlist/xml](./resources/ss_url_2.jpg)
+![Akses URL http://localhost:8000/mywatchlist/json](./resources/ss_url_3.jpg)
+
