@@ -3,9 +3,37 @@
 
 ***
 ## JSON, XML, dan HTML
+### JSON
+JSON merupakan singkatan dari JavaScript Object Notation. JSON digunakan untuk menyimpan dan mengirimkan data. JSON memiliki format tertentu untuk menyimpan dan mengirimkan data, yaitu dalam bentuk pasangan *key* dan *value*. JSON sendiri bersifat *self-descriptive*
+
+### XML
+XML merupakan singkatan dari eXtensible Markup Language. XML digunakan untuk menyimpan dan mengirimkan data. XML memiliki format tertentu untuk menyimpan dan mengirimkan data. XML sendiri bersifat *self-descriptive*
+
+### HTML
+HTML merupakan singkatan dari HyperText Markup Language yang berfungsi untuk mendeskripsikan struktur dari suatu halaman web. HTML element digunakan sebagai "building block" dari suatu HTML page yang terdiri dari *opening tag*, *content*, dan *closing tag*. HTML element dapat memiliki suatu *attribute* yang befungsi sebagai informasi tambahan untuk element tersebut. HTML attribute biasanya diletakkan pada *opening tag* berupa pasangan `name="value"`
+
+## Perbedaan JSON dan XML
+| JSON        | XML        |
+| ----------- | ---------- |
+| Sintaks merupakan turunan dari sintaks notasi objek JavaScript | Sintaks berasal dari SGML (Standard Generalized Markup Language) |
+| Penyimpanan data dalam bentuk objek dengan pasangan *key* dan *value*   | Penyimpanan data dalam bentuk struktur tag |
+| Tidak menggunakan tag | menggunakan tag (diawali dan diakhir dengan tag)
+| JSON cenderung lebih cepat untuk proses *read/write* | XML cenderung lebih lambat untuk proses *read/write*
+| JSON bisa di-*parsed* dengan fungsi JavaScript standar | XML harus di-*parsed* dengan XML parser
+| Mendukung array | Tidak mendukung array |
+| Hanya mendukung UTF-8 *encoding* | Mendukung berbagai jenis *encoding* |
+
+Sumber: 
+1. https://www.w3schools.com/js/js_json_xml.asp
+2. https://www.geeksforgeeks.org/difference-between-json-and-xml/
+3. Slide Data Delivery (Markup Language dan JSON) PBP 2022/2023
 
 ***
 ## Pentingnya Data Delivery
+*Data Delivery* sangat dibutuhkan dalam pengimplementasian sebuah platform. Hal ini dikarenakan kadang kala kita pelu untuk mengirim/mentransmisikan data dalam web aplikasi yang kita buat. Salah satunya adalah ketika kita ingin mentransmisikan data antara server dan web aplikasi kita. 
+
+Sumber: 
+1. https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/JSON
 
 ***
 ## Implementasi
