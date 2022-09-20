@@ -16,13 +16,31 @@ def show_menu(request):
 
 def show_mywatchlist(request):
     data_mywatchlist = MyWatchList.objects.all()
+    message = message_based_on_total_watch(data_mywatchlist)
     context = {
         'mywatchlist': data_mywatchlist,
         'nama': 'Lyzander Marciano Andrylie',
-        'id': '2106750755'
+        'id': '2106750755',
+        'pesan': message
     }
 
     return render(request, "mywatchlist.html", context)
+
+def message_based_on_total_watch(data):
+    watched = 0
+    not_watched = 0
+
+    for film in data:
+        if film.watched:
+            watched += 1
+        else:
+            not_watched += 1
+
+    if watched >= not_watched:
+        return "Selamat, kamu sudah banyak menonton!"
+    else:
+        return "Wah, kamu masih sedikit menonton!"
+
 
 def show_xml(request):
     data = MyWatchList.objects.all()

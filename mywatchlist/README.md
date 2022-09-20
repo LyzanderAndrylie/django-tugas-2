@@ -191,3 +191,50 @@ Tujuan penambahan tersebut adalah untuk menguji bahwa URL dapat mengembalikan re
 ![Akses URL http://localhost:8000/mywatchlist/xml](./resources/ss_url_2.jpg)
 ![Akses URL http://localhost:8000/mywatchlist/json](./resources/ss_url_3.jpg)
 
+# Bonus
+Penambahan fitur untuk menampilkan pesan dengan aturan sebagai berikut.
+1.  Jika jumlah film yang sudah ditonton lebih banyak atau sama dengan jumlah film yang belum ditonton, tampilkan pesan "Selamat, kamu sudah banyak menonton!" dalam bentuk HTML
+2. Jika jumlah film yang belum ditonton lebih banyak dari jumlah film yang sudah ditonton, tampilkan pesan "Wah, kamu masih sedikit menonton!" dalam bentuk HTML
+
+Implementasi dilakukan dengan membuat fungsi pembantu pada `views.py` pada folder `mywatchlist`, yaitu `message_based_on_total_watch` dengan parameter `data`.
+
+```python
+def message_based_on_total_watch(data):
+    watched = 0
+    not_watched = 0
+
+    for film in data:
+        if film.watched:
+            watched += 1
+        else:
+            not_watched += 1
+
+    if watched >= not_watched:
+        return "Selamat, kamu sudah banyak menonton!"
+    else:
+        return "Wah, kamu masih sedikit menonton!"
+```
+Kemudian, pada fungsi `show_mywatchlist`, kita perlu menambahkan variabel berupa `message` untuk menyimpan pesan dari fungsi `message_based_on_total_watch(data_mywatchlist)` yang kita panggil. Perhatikan bahwa argumen pada pemanggilan fungsi tersebut berupa `QuerySet` yang bersifat *iterable*. Selanjutnya, kita tinggal menambahkan elemen baru pada `context` dengan *key* berupa `'pesan'` dan `value` berupa `message`. 
+
+```python
+def show_mywatchlist(request):
+    data_mywatchlist = MyWatchList.objects.all()
+    message = message_based_on_total_watch(data_mywatchlist)
+    context = {
+        'mywatchlist': data_mywatchlist,
+        'nama': 'Lyzander Marciano Andrylie',
+        'id': '2106750755',
+        'pesan': message
+    }
+```
+> Perhatikan bahwa data yang ada pada variabel context tersebut akan ikut di-render oleh Django (template akan di-render dengan context dan proses *rendering* akan mengganti variabel dengan valuenya dengan melihat pada `context` tersebut)
+
+Selanjutnya, kita tingal menambahkan HTML element dan sintaks template Django pada `mywatchlist.html` untuk menampilkan pesan tersebut pada HTML kita.
+
+```html
+...
+<h5>Pesan:</h5>
+<p>{{pesan}}</p>
+...
+```
+
