@@ -7,7 +7,19 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 
+from django.contrib.auth.decorators import login_required
+
 # Create your views here.
+@login_required(login_url='/todolist/login/')
+def show_todolist(request):
+
+    context = {
+        'nama': 'Lyzander Marciano Andrylie',
+        'id': '2106750755'
+    }
+
+    return render(request, 'todolist.html', context)
+
 def register(request):
     form = UserCreationForm()
 
