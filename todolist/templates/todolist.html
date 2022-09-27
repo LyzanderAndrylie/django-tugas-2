@@ -10,13 +10,27 @@
 <h5>Student ID: </h5>
 <p>{{id}}</p>
 
+<h5>Username: </h5>
+<p>{{nama_user}}</p>
+
+<h2>Task</h2>
 <table>
   <tr>
-    <th></th>
+    <th>Tanggal Pembuatan</th>
+    <th>Judul</th>
+    <th>Deskripsi</th>
   </tr>
   {% comment %} Add the data below this line {% endcomment %}
+  {% for task in data_task %}
+    <tr>
+      <td>{{task.date}}</td>
+      <td>{{task.title}}</td>
+      <td>{{task.description}}</td>
+    </tr>
+  {% endfor %}
 </table>
 
+<!-- <button><a href="">Tambah Task Baru</a></button> -->
 <button><a href="{% url 'todolist:logout' %}">Logout</a></button>
 
 {% endblock content %}

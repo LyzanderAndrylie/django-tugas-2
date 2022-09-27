@@ -8,12 +8,23 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 
 from django.contrib.auth.decorators import login_required
+from todolist.models import Task
 
 # Create your views here.
 @login_required(login_url='/todolist/login/')
 def show_todolist(request):
+    user = request.user
+    username = ""
+
+    # Pengecekan user
+    if user.is_authenticated:
+        username = user.username
+
+    data_task = Task.objects.all()
 
     context = {
+        'data_task': data_task,
+        'nama_user': username,
         'nama': 'Lyzander Marciano Andrylie',
         'id': '2106750755'
     }
