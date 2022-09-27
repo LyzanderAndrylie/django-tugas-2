@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Tugas 4 Assignment PBP/PBD</h1>
+
+<h5>Name: </h5>
+<p>{{nama}}</p>
+
+<h5>Student ID: </h5>
+<p>{{id}}</p>
+
+<h5>Username: </h5>
+<p>{{nama_user}}</p>
+
+<h2>Task</h2>
+
+<div class = "task">
+    
+    <h2>Pembuatan Task</h2>  
+
+        <form method="POST">  
+            {% csrf_token %}  
+            <table>  
+                {{ form.as_table }}  
+                <tr>  
+                    <td></td>
+                    <td><input type="submit" name="submit" value="Tambah"/></td>  
+                </tr>  
+            </table>  
+        </form>
+
+    {% if messages %}  
+        <ul>   
+            {% for message in messages %}  
+                <li>{{ message }}</li>  
+                {% endfor %}  
+        </ul>   
+    {% endif %}
+
+</div>
+
+<button><a href="{% url 'todolist:show_todolist' %}">Back to Main</a></button>
+<button><a href="{% url 'todolist:logout' %}">Logout</a></button>
+
+{% endblock content %}

@@ -1,3 +1,4 @@
+from multiprocessing import context
 from django.shortcuts import render
 
 from django.shortcuts import redirect
@@ -9,6 +10,12 @@ from django.contrib.auth import logout
 
 from django.contrib.auth.decorators import login_required
 from todolist.models import Task
+
+import datetime
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+
+from todolist.forms import TaskForm
 
 # Create your views here.
 @login_required(login_url='/todolist/login/')
@@ -60,3 +67,41 @@ def login_user(request):
 def logout_user(request):
     logout(request)
     return redirect('todolist:login')
+
+def create_task(request):
+    form = TaskForm()
+
+    if request.method == 'POST':
+        form = TaskForm(request.POST)
+
+        if form.is_valid():
+
+            # Pembuatan objek dari model Task
+            user = request.user
+            date = datetime.datetime.now()
+
+            data = form.cleaned_data
+            title = data['judul_task']
+            description = data['deskripsi_task']
+
+            # Simpan objek dari model Task ke database
+            task = Task(user=user, date=date, title=title, description=description)
+            task.save()
+
+            return redirect('todolist:show_todolist')
+
+    # Pengecekan user
+    user = request.user
+    username = ""
+
+    if user.is_authenticated:
+        username = user.username
+
+    context = {
+        'nama_user': username,
+        'nama': 'Lyzander Marciano Andrylie',
+        'id': '2106750755',
+        'form': form
+    }
+    
+    return render(request, "create_task.html", context)

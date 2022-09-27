@@ -30,7 +30,7 @@
   {% endfor %}
 </table>
 
-<!-- <button><a href="">Tambah Task Baru</a></button> -->
+<button><a href="{% url 'todolist:create_task' %}">Tambah Task Baru</a></button>
 <button><a href="{% url 'todolist:logout' %}">Logout</a></button>
 
 {% endblock content %}
