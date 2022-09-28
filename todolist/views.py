@@ -72,6 +72,7 @@ def create_task(request):
 
     if request.method == 'POST':
         form = TaskForm(request.POST)
+        print(request.POST)
 
         if form.is_valid():
 
