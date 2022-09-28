@@ -27,7 +27,7 @@ def show_todolist(request):
     if user.is_authenticated:
         username = user.username
 
-    data_task = Task.objects.all()
+    data_task = Task.objects.filter(user=user)
 
     context = {
         'data_task': data_task,
@@ -35,7 +35,6 @@ def show_todolist(request):
         'nama': 'Lyzander Marciano Andrylie',
         'id': '2106750755'
     }
-
     return render(request, 'todolist.html', context)
 
 def register(request):
