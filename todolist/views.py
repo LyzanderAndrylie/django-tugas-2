@@ -28,7 +28,7 @@ def show_todolist(request):
         username = user.username
 
     data_task = Task.objects.filter(user=user)
-
+    
     context = {
         'data_task': data_task,
         'nama_user': username,
@@ -104,3 +104,16 @@ def create_task(request):
     }
     
     return render(request, "create_task.html", context)
+
+def update_task(request, id):
+    task = Task.objects.get(pk=id)
+    ubah_status = not task.is_finished
+    Task.objects.filter(pk=id).update(is_finished=ubah_status)
+
+    return redirect('todolist:show_todolist')
+
+def delete_task(request, id):
+    task = Task.objects.get(pk=id)
+    task.delete()
+
+    return redirect('todolist:show_todolist')

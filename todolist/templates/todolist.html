@@ -19,6 +19,8 @@
     <th>Tanggal Pembuatan</th>
     <th>Judul</th>
     <th>Deskripsi</th>
+    <th>Status Penyelesaian</th>
+    <th>Perbarui</th>
   </tr>
   {% comment %} Add the data below this line {% endcomment %}
   {% for task in data_task %}
@@ -26,6 +28,11 @@
       <td>{{task.date}}</td>
       <td>{{task.title}}</td>
       <td>{{task.description}}</td>
+      <td>{{task.is_finished}}</td>
+      <td>
+        <button><a href="{% url 'todolist:update_task' id=task.pk %}">Ubah</a></button>
+        <button><a href="{% url 'todolist:delete_task' id=task.pk %}">Hapus</a></button>
+      </td>
     </tr>
   {% endfor %}
 </table>
