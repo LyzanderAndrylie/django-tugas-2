@@ -5,20 +5,40 @@
 {% endblock meta %}
 
 {% block content %}  
+<nav class="navbar navbar-dark navbar-expand-lg bg-primary">
+    <div class="container-fluid">
+      <a class="navbar-brand text-bg-primary" href="{% url 'todolist:show_todolist' %}">TODOLIST</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active text-bg-primary" aria-current="page" href="{% url 'todolist:login' %}">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-bg-primary" href="{% url 'todolist:show_about' %}">About</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
 <div class = "login">
     
-    <h1>Formulir Registrasi</h1>  
+    <h1 class="text-center m-2">Formulir Registrasi</h1>  
 
-        <form method="POST" >  
+        <form class="m-2" method="POST">  
             {% csrf_token %}  
-            <table>  
-                {{ form.as_table }}  
-                <tr>  
-                    <td></td>
-                    <td><input type="submit" name="submit" value="Daftar"/></td>  
-                </tr>  
-            </table>  
+            <div class="container">
+              <table class="table align-middle table-borderless">  
+                  {{ form.as_table }}  
+                  <tr>  
+                      <td></td>
+                      <td><input class="btn btn-primary" type="submit" name="submit" value="Daftar"/></td>  
+                  </tr>  
+              </table>  
+            </div>
         </form>
 
     {% if messages %}  

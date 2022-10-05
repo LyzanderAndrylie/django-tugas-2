@@ -6,28 +6,52 @@
 
 {% block content %}
 
+<nav class="navbar navbar-dark navbar-expand-lg bg-primary">
+    <div class="container-fluid">
+      <a class="navbar-brand text-bg-primary" href="{% url 'todolist:show_todolist' %}">TODOLIST</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active text-bg-primary" aria-current="page" href="{% url 'todolist:register' %}">Daftar</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-bg-primary" href="{% url 'todolist:show_about' %}">About</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
 <div class = "login">
 
-    <h1>Login</h1>
+    <h1 class="text-center m-2">Login</h1>
 
-    <form method="POST" action="">
+    <form method="POST" action="" class="m-2">
         {% csrf_token %}
-        <table>
-            <tr>
-                <td>Username: </td>
-                <td><input type="text" name="username" placeholder="Username" class="form-control"></td>
-            </tr>
-                    
-            <tr>
-                <td>Password: </td>
-                <td><input type="password" name="password" placeholder="Password" class="form-control"></td>
-            </tr>
-
-            <tr>
-                <td></td>
-                <td><input class="btn login_btn" type="submit" value="Login"></td>
-            </tr>
-        </table>
+        <div class="container">
+            <table class="table align-middle table-borderless">
+                <tr>
+                    <td>Username: </td>
+                    <td colspan="2"><input type="text" name="username" placeholder="Username" class="form-control"></td>
+                </tr>
+                        
+                <tr>
+                    <td>Password: </td>
+                    <td colspan="2"><input type="password" name="password" placeholder="Password" class="form-control"></td>
+                </tr>
+    
+                <tr>
+                    <td></td>
+                    <div class="text-center">
+                        <td><input class="btn login_btn  btn-success btn-sm" type="submit" value="Login"></td>
+                    </div>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
     </form>
 
     {% if messages %}
@@ -38,7 +62,7 @@
         </ul>
     {% endif %}     
         
-    Belum mempunyai akun? <a href="{% url 'todolist:register' %}">Buat Akun</a>
+    <p class="text-center">Belum mempunyai akun? <a href="{% url 'todolist:register' %}">Buat Akun</a></p>
 
 </div>
 

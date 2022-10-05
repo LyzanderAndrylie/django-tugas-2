@@ -1,43 +1,71 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<nav class="navbar navbar-dark navbar-expand-lg bg-primary">
+  <div class="container-fluid">
+    <a class="navbar-brand text-bg-primary" href="{% url 'todolist:show_todolist' %}">TODOLIST</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active text-bg-primary" aria-current="page" href="{% url 'todolist:logout' %}">Logout</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-bg-primary" href="{% url 'todolist:show_about' %}">About</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
 
-<h1>Tugas 4 Assignment PBP/PBD</h1>
+<h1 class="text-center m-2">Tugas 4 Assignment PBP/PBD</h1>
+<div class="container">
+  <p><strong>Name:</strong> {{nama}}</p>
+  
+  <p><strong>Student ID:</strong>{{id}}</p>
+  
+  <p><strong>Username:</strong> {{nama_user}}</p>
+</div>
 
-<h5>Name: </h5>
-<p>{{nama}}</p>
+<hr>
 
-<h5>Student ID: </h5>
-<p>{{id}}</p>
+<h2 class="text-center m-2">Task</h2>
+<div class="container-fluid d-flex flex-wrap justify-content-center">
+    {% comment %} Add the data below this line {% endcomment %}
+    {% for task in data_task %}
+    {% if task.is_finished %}
+    <div class="card text-bg-success m-3" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title">{{task.title}}</h5>
+        <h6 class="card-subtitle mb-2">{{task.date}}</h6>
+        <h6 class="card-subtitle mb-2">Selesai</h6>
+        <p class="card-text">{{task.description}}</p>
+        <button class="btn btn-primary"><a href="{% url 'todolist:update_task' id=task.pk %}" class="link-light">Ubah</a></button>
+        <button class="btn btn-secondary"><a href="{% url 'todolist:delete_task' id=task.pk %}" class="link-light">Hapus</a></button>
+      </div>
+    </div>
+    {% else %}
+    <div class="card text-bg-danger m-3" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title">{{task.title}}</h5>
+        <h6 class="card-subtitle mb-2">{{task.date}}</h6>
+        <h6 class="card-subtitle mb-2">Belum Selesai</h6>
+        <p class="card-text">{{task.description}}</p>
+        <button class="btn btn-primary"><a href="{% url 'todolist:update_task' id=task.pk %}" class="link-light">Ubah</a></button>
+        <button class="btn btn-secondary"><a href="{% url 'todolist:delete_task' id=task.pk %}" class="link-light">Hapus</a></button>
+      </div>
+    </div>
 
-<h5>Username: </h5>
-<p>{{nama_user}}</p>
+    {% endif %}
+    {% endfor %}
+  </div>
 
-<h2>Task</h2>
-<table>
-  <tr>
-    <th>Tanggal Pembuatan</th>
-    <th>Judul</th>
-    <th>Deskripsi</th>
-    <th>Status Penyelesaian</th>
-    <th>Perbarui</th>
-  </tr>
-  {% comment %} Add the data below this line {% endcomment %}
-  {% for task in data_task %}
-    <tr>
-      <td>{{task.date}}</td>
-      <td>{{task.title}}</td>
-      <td>{{task.description}}</td>
-      <td>{{task.is_finished}}</td>
-      <td>
-        <button><a href="{% url 'todolist:update_task' id=task.pk %}">Ubah</a></button>
-        <button><a href="{% url 'todolist:delete_task' id=task.pk %}">Hapus</a></button>
-      </td>
-    </tr>
-  {% endfor %}
-</table>
+  <div class="d-grid gap-2 col-6 mx-auto my-3">
+    <button class="btn btn-success"><a href="{% url 'todolist:create_task' %}" class="link-light">Tambah Task Baru</a></button>
+    <button class="btn btn-danger"><a href="{% url 'todolist:logout' %}" class="link-light">Logout</a></button>
+  </div>
 
-<button><a href="{% url 'todolist:create_task' %}">Tambah Task Baru</a></button>
-<button><a href="{% url 'todolist:logout' %}">Logout</a></button>
 
 {% endblock content %}

@@ -118,3 +118,6 @@ def delete_task(request, id):
     task.delete()
 
     return redirect('todolist:show_todolist')
+
+def show_about(request):
+    return render(request, "about.html")

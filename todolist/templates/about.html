@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<nav class="navbar navbar-dark navbar-expand-lg bg-primary">
+  <div class="container-fluid">
+    <a class="navbar-brand text-bg-primary" href="{% url 'todolist:show_todolist' %}">TODOLIST</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active text-bg-primary" aria-current="page" href="{% url 'todolist:show_todolist' %}">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-bg-primary" href="#">About</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<h1 class="text-center m-2">About</h2>
+
+<div class="container">
+    <p class="text-center">TODOLIST is a simple web application to remind our tasks. This web application is created to complete my task for PBP 2022/2023</p>
+</div>
+
+
+
+
+{% endblock content %}

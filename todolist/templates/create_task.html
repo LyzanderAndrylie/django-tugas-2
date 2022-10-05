@@ -1,46 +1,66 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<nav class="navbar navbar-dark navbar-expand-lg bg-primary">
+    <div class="container-fluid">
+      <a class="navbar-brand text-bg-primary" href="{% url 'todolist:show_todolist' %}">TODOLIST</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active text-bg-primary" aria-current="page" href="{% url 'todolist:register' %}">Daftar</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-bg-primary" href="{% url 'todolist:show_about' %}">About</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+<h1 class="text-center m-2">Tugas 4 Assignment PBP/PBD</h1>
 
-<h1>Tugas 4 Assignment PBP/PBD</h1>
-
-<h5>Name: </h5>
-<p>{{nama}}</p>
-
-<h5>Student ID: </h5>
-<p>{{id}}</p>
-
-<h5>Username: </h5>
-<p>{{nama_user}}</p>
-
-<h2>Task</h2>
-
-<div class = "task">
-    
-    <h2>Pembuatan Task</h2>  
-
-        <form method="POST">  
-            {% csrf_token %}  
-            <table>  
-                {{ form.as_table }}  
-                <tr>  
-                    <td></td>
-                    <td><input type="submit" name="submit" value="Tambah"/></td>  
-                </tr>  
-            </table>  
-        </form>
-
-    {% if messages %}  
-        <ul>   
-            {% for message in messages %}  
-                <li>{{ message }}</li>  
-                {% endfor %}  
-        </ul>   
-    {% endif %}
-
+<div class="container">
+  <p><strong>Name:</strong> {{nama}}</p>
+  
+  <p><strong>Student ID:</strong>{{id}}</p>
+  
+  <p><strong>Username:</strong> {{nama_user}}</p>
 </div>
-
-<button><a href="{% url 'todolist:show_todolist' %}">Back to Main</a></button>
-<button><a href="{% url 'todolist:logout' %}">Logout</a></button>
+<hr>
+<div class="container">
+  <h2 class="text-center m-2">Task</h2>
+  
+  <div class = "task">
+      
+      <h2>Pembuatan Task</h2>  
+  
+          <form method="POST">  
+              {% csrf_token %}  
+              <table>  
+                  {{ form.as_table }}  
+                  <tr>  
+                      <td></td>
+                      <td><input type="submit" name="submit" value="Tambah" class="btn btn-success"/></td>  
+                  </tr>  
+              </table>  
+          </form>
+  
+      {% if messages %}  
+          <ul>   
+              {% for message in messages %}  
+                  <li>{{ message }}</li>  
+                  {% endfor %}  
+          </ul>   
+      {% endif %}
+  
+  </div>
+  <div class="d-grid gap-2 col-6 mx-auto my-3">
+    <button class="btn btn-success"><a href="{% url 'todolist:show_todolist' %}"  class="link-light">Back to Main</a></button>
+    <button class="btn btn-danger"><a href="{% url 'todolist:logout' %}"  class="link-light">Logout</a></button>
+  </div>
+</div>
 
 {% endblock content %}
