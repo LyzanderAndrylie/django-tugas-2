@@ -1,5 +1,22 @@
 {% extends 'base.html' %}
 
+{% block meta %}
+<title>TODOLIST</title>
+<style>
+  .done :hover, .undone :hover {
+    background-color: white;
+  }
+
+  .done :hover {
+    color: #28a745;
+  }
+
+  .undone :hover {
+    color: #dc3545;
+  }
+</style>
+{% endblock meta %}
+
 {% block content %}
 <nav class="navbar navbar-dark navbar-expand-lg bg-primary">
   <div class="container-fluid">
@@ -36,7 +53,7 @@
     {% comment %} Add the data below this line {% endcomment %}
     {% for task in data_task %}
     {% if task.is_finished %}
-    <div class="card text-bg-success m-3" style="width: 18rem;">
+    <div class="card text-bg-success m-3 done" style="width: 18rem;">
       <div class="card-body">
         <h5 class="card-title">{{task.title}}</h5>
         <h6 class="card-subtitle mb-2">{{task.date}}</h6>
@@ -47,7 +64,7 @@
       </div>
     </div>
     {% else %}
-    <div class="card text-bg-danger m-3" style="width: 18rem;">
+    <div class="card text-bg-danger m-3 undone" style="width: 18rem;">
       <div class="card-body">
         <h5 class="card-title">{{task.title}}</h5>
         <h6 class="card-subtitle mb-2">{{task.date}}</h6>
