@@ -489,6 +489,188 @@ Pembuatan akun pengguna dilakukan dengan mendaftar terlebih dahulu pada http://d
     ### Task Pengguna 2
     ![Task Pengguna 2](./resources/task_pengguna2.jpg)
 
+***
+
+## Inline, Internal, dan External CSS
+1. Inline CSS<br>
+Inline CSS adalah suatu cara untuk menambahkan *style* pada HTML kita dengan memanfaatkan `style` *attribute* yang disediakan oleh HTML. Inline CSS memungkinkan kita untuk menambahkan suatu *style* secara langsung ke HTML elements dan biasanya digunakan untuk menerapkan suatu ***style* unik** pada suatu elemen tertentu saja 
+    > jika kita ingin menerapkan suatu *style* pada beberapa elemen sekaligus, kita dapat memanfaatkan `Internal CSS` atau `External CSS`.
+
+    Sintaks berupa
+    ```html
+    <element style="property:value; property:value"> </element>
+    ```
+
+2. Internal CSS<br>
+Internal CSS adalah suatu cara untuk menambahkan *style* pada HTML kita dengan memanfaatkan `<style>` element dan mendefinisikan CSS Rule di dalam `<style>` element tersebut. 
+
+    Sintaks berupa
+    ```html
+    <head>
+        <style>
+            selector {
+                property: value;
+                property: value;
+                ...
+            }
+        </style>
+    </head>
+    ```
+    > Cara ini akan bermanfaat ketika kita ingin menambahkan *style* unik ke halaman tunggal pada *website* kita.
+
+3. External CSS<br>
+External CSS adalah suatu cara untuk  menambahkan *style* pada HTML kita dengan membuat *file* terpisah untuk CSS dan menghubungkan dengan HTML kita. Penghubungan dilakukan dengan memanfaatkan `<link>` element dan meletakkannya pada `<head>` element pada HTML file kita.
+
+    Sintaks berupa
+    ```html
+    <!-- index.html -->
+
+    <head>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    ```
+    ```css
+    /* styles.css */
+
+    selector {
+        property: value;
+        property: value;
+        ...
+    }
+    ```
+
+### Perbedaan Inline, Internal, dan External CSS
+| Inline CSS | Internal CSS | External CSS |
+| --- | ----------- | --- |
+| *style* ditulis secara langsung ke dalam *opening tag* suatu HTML element dengan memanfaatkan atribut berupa `style:""` | pendefinisian *style* terletak pada `<head>` element pada suatu HTML dengan memanfaatkan `<style>` element | pendefinisian *style* dilakukan pada file yang terpisah dan dihubungkan dengan html menggunakan `<link>` element |
+| biasanya diterapkan untuk element tunggal tertentu saja dengan style unik | biasanya diterpakan untuk beberapa element pada file yang sama | biasanya diterapkan untuk beberapa element pada file yang berbeda |
+| menggunakan atribut style | menggunakan `<style>` element | menggunakan `<link>` element untuk menghubungkan dengan file css eksternal
+| memiliki specificity CSS declaration tertinggi | specificity CSS declaration ditentukan oleh selector | specificity CSS declaration ditentukan oleh selector |
+
+### Kelebihan dan Kekurangan
+1. Inline CSS<br>
+- Kelebihan: 
+    - Memiliki *specificity* paling tinggi sehingga dapat meng-*override* *style* yang dideklarasikan pada internal ataupun external CSS (Perhatikan bahwa hal ini bisa jadi kekurangan juga)
+    - Bisa menerapkan suatu style pada suatu HTML element tunggal secara cepat
+- Kekurangan:
+    - Sulit untuk menerapkan *style* yang sama ke beberapa elemen yang berbeda. Hal ini dikarenakan kita harus melakukan `copy` dan `paste` berulang kali
+    - Kode pada HTML kita akan menjadi sulit untuk dibaca ketika terdapat banyak deklarasi CSS pada beberapa element tunggal
+
+2. Internal CSS<br>
+- Kelebihan:
+    - Bisa menerapkan *style* unik pada halaman tertentu pada *website* kita
+- Kekurangan:
+    - Size dari HTML file kita bisa membesar ketika terdapat banyaknya deklarasi CSS rule
+
+2. External CSS<br>
+- Kelebihan:
+    - Menjaga file HTML dan CSS terpisah sehingga memudahkan untuk melakukan *maintenance* 
+    - Size dari file HTML akan lebih kecil dibandingkan dengan menggunakan internal CSS
+    - file HTML akan terlihat lebih *bersih*
+- Kelemahan:
+    - Perubahan yang kita lakukan pada suatu CSS rule tertentu dapat memengaruhi beberapa halaman HTML yang memanfaatkan rule tersebut
+    - Halaman web kita mungkin tidak di-*render* dengan baik sebelum external CSS di-*load*
+
+Sumber: https://www.theodinproject.com/lessons/foundations-css-foundations
 
 
+***
 
+## Tag HTML5
+- `<html>` = merepresentasikan root element dari HTML document
+- `<head>` = mengandung metadata tentang dokumen HTML tersebut
+- `<title>` = digunakan untuk mendefinisikan judul dokumen yang akan ditampilkan pada tab di browser kita
+- `<meta>` = digunakan untuk merepresentasikan metadata yang tidak dapat direpresentasikan oleh HTML meta-related elements lainnya.
+- `<body>` = digunakan untuk merepresentasikan konten dari suatu HTML document
+- `<p>` = digunakan untuk merepresentasikan paragraf
+- `<h1>`= digunakan untuk merepresentasikan *section heading*
+- `<img>` = digunakan untuk merepresentasikan gambar
+- `<style>` = mengandung informasi berkaitan dengan style untuk dokumen HMTL kita
+- `<link>` = digunakan untuk menspesifikkan hubungan antara *current* document dengan *external sources*
+- `<a href="">` = digunakan untuk membuat hyperlink ke berbagai *source* yang bisa diakses oleh suatu URL
+
+Sumber: https://developer.mozilla.org/en-US/
+***
+
+## Tipe-Tipe CSS Selector
+1. Universal Selector<br>
+Universal selector akan memilih dan menerapkan style ke semua tipe elemen. Sintaks berupa
+```css
+* {
+    property: value;
+}
+```
+
+2. Type/Element Selector<br>
+Type/element selector akan memilih dan menerapkan style ke tipe elemen yang sesuai dengan selector. Sintaks berupa
+```css
+element {
+    property: value;
+}
+```
+
+3. Class Selector<br>
+Class selector akan memilih dan menerapkan style ke elemen dengan class yang sesuai dengan selector. Sintaks berupa
+```css
+.nama-class {
+    property: value;
+}
+```
+
+4. ID Selector<br>
+ID selector akan memilih dan menerapkan style ke elemen dengan ID yang sesuai dengan selector. Sintaks berupa
+```css
+#nama-id {
+    property: value;
+}
+```
+
+## Implementasi CSS pada aplikasi todolist
+1. Kustomisasi templat HTML dengan CSS<br>
+Kustomisasi templat HTML dilakukan dengan memanfaatkan CSS framework, yaitu Bootstrap. Penambahan Bootstrap pada aplikasi todolist dilakukan dengan menambahkan barisan kode berikut pada templat `base.html`.
+    ```html
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    ```
+    > Perhatikan bahwa potongan kode di atas digunakan untuk memanfaatkan CDN Bootstrap
+
+2. Kustomisasi templat untuk halaman login, register, dan create-task<br>
+Kustomisasi templat untuk halaman login dilakukan dengan memanfaatkan class CSS yang telah terdefinisi pada Bootstrap untuk berbagai elemen dan juga fitur-fitur untuk spacing, flex, color, container, navbar, dll.
+
+3. Kustomisasi halaman utama todo list menggunakan cards<br>
+Kustomisasi halaman utama todo list menggunakan card sehingga masing-masing card mengandung satu task dilakukan dengan memanfaatkan elemen `<div>` dan CSS class `.card`. Implementasi sebagai berikut.
+    ```html
+    <div class="container-fluid d-flex flex-wrap justify-content-center">
+        {% comment %} Add the data below this line {% endcomment %}
+        {% for task in data_task %}
+        {% if task.is_finished %}
+        <div class="card text-bg-success m-3 done" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">{{task.title}}</h5>
+            <h6 class="card-subtitle mb-2">{{task.date}}</h6>
+            <h6 class="card-subtitle mb-2">Selesai</h6>
+            <p class="card-text">{{task.description}}</p>
+            <button class="btn btn-primary"><a href="{% url 'todolist:update_task' id=task.pk %}" class="link-light">Ubah</a></button>
+            <button class="btn btn-secondary"><a href="{% url 'todolist:delete_task' id=task.pk %}" class="link-light">Hapus</a></button>
+        </div>
+        </div>
+        {% else %}
+        <div class="card text-bg-danger m-3 undone" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">{{task.title}}</h5>
+            <h6 class="card-subtitle mb-2">{{task.date}}</h6>
+            <h6 class="card-subtitle mb-2">Belum Selesai</h6>
+            <p class="card-text">{{task.description}}</p>
+            <button class="btn btn-primary"><a href="{% url 'todolist:update_task' id=task.pk %}" class="link-light">Ubah</a></button>
+            <button class="btn btn-secondary"><a href="{% url 'todolist:delete_task' id=task.pk %}" class="link-light">Hapus</a></button>
+        </div>
+        </div>
+
+        {% endif %}
+        {% endfor %}
+    </div>
+    ```
+
+    > Implementasi di atas juga memanfaatkan Django template language sehingga kita tidak pelu membuat hal yang sama berulang kali. 
+
+4. Halaman yang dikustomisasi menjadi responsive<br>
+Perhatikan bahwa *class-class* yang terdefinisi pada Bootstrap sudah *responsive* *by default* dan memanfaatkan *media queries* dengan baik sehingga kita tidak perlu mengimplementasi kembali (`Don't reinvent the wheel`).
