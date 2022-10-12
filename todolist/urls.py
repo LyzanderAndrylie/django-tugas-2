@@ -13,5 +13,6 @@ urlpatterns = [
     path('login/', login_user, name='login'),
     path('logout/', logout_user, name='logout'),
     path('create-task/', create_task, name='create_task'),
-    path('about/', show_about, name='show_about')
+    path('about/', show_about, name='show_about'),
+    path('json/', show_json, name='show_json'),
 ]

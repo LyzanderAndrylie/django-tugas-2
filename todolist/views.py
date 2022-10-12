@@ -17,6 +17,9 @@ from django.urls import reverse
 
 from todolist.forms import TaskForm
 
+from django.http import HttpResponse
+from django.core import serializers
+
 # Create your views here.
 @login_required(login_url='/todolist/login/')
 def show_todolist(request):
@@ -121,3 +124,8 @@ def delete_task(request, id):
 
 def show_about(request):
     return render(request, "about.html")
+
+def show_json(request):
+    data = Task.objects.all()
+
+    return HttpResponse(serializers.serialize("json", data), content_type="application/json")

@@ -16,6 +16,20 @@
     color: #dc3545;
   }
 </style>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $.ajax({
+      url: "{% url 'todolist:show_json' %}",
+      type: "GET",
+      success: function(result) {
+        console.log(result)
+      }
+    })
+  })
+</script>
+
 {% endblock meta %}
 
 {% block content %}
