@@ -16,7 +16,6 @@
     color: #dc3545;
   }
 </style>
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script>
   $(document).ready(function() {
@@ -57,9 +56,55 @@
         }
         $("div#todolist-card").append(htmlString)          
       }
-
-      
     })
+
+    $("#form-add-task").submit(function(e) {
+      e.preventDefault() // mencegah perilaku default browser untuk submisi form
+
+      $.ajax({
+        type: "POST",
+        url: "{% url 'todolist:add_todolist_item' %}",
+        data: $(this).serialize(), // Mendapatkan form data
+        success: function(response) {
+          
+          // Append
+          var htmlString = "";
+          var task = response[0].fields
+          
+          if (task.is_finished) {
+            htmlString = `
+            <div class="card text-bg-success m-3 done" style="width: 18rem;">
+              <div class="card-body">
+                <h5 class="card-title">${task.title}</h5>
+                <h6 class="card-subtitle mb-2">${task.date}</h6>
+                <h6 class="card-subtitle mb-2">Selesai</h6>
+                <p class="card-text">${task.description}</p>
+                </div>
+                </div>
+                `
+              } else {
+                htmlString = `
+                <div class="card text-bg-danger m-3 undone" style="width: 18rem;">
+                  <div class="card-body">
+                    <h5 class="card-title">${task.title}</h5>
+                    <h6 class="card-subtitle mb-2">${task.date}</h6>
+                    <h6 class="card-subtitle mb-2">Belum Selesai</h6>
+                    <p class="card-text">${task.description}</p>
+                    </div>
+                    </div>
+                    `
+                  }
+                  
+          $("div#todolist-card").append(htmlString)
+           
+          alert("Item telah ditambahkan")
+        }
+      })      
+    }
+    )
+
+    
+
   })
 </script>
 
@@ -130,6 +175,36 @@
   </div>
 
   <div class="d-grid gap-2 col-6 mx-auto my-3">
+
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+      Add Task
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">Add Task</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form method="POST" id="form-add-task">  
+              {% csrf_token %}  
+              <table>  
+                  {{ form.as_table }}  
+              </table>  
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-success">Add</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <button class="btn btn-success"><a href="{% url 'todolist:create_task' %}" class="link-light">Tambah Task Baru pada Halaman Baru</a></button>
     <button class="btn btn-danger"><a href="{% url 'todolist:logout' %}" class="link-light">Logout</a></button>
   </div>

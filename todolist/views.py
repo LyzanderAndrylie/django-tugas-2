@@ -12,13 +12,15 @@ from django.contrib.auth.decorators import login_required
 from todolist.models import Task
 
 import datetime
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseNotFound, HttpResponseRedirect
 from django.urls import reverse
 
 from todolist.forms import TaskForm
 
 from django.http import HttpResponse
 from django.core import serializers
+
+import json
 
 # Create your views here.
 @login_required(login_url='/todolist/login/')
@@ -31,12 +33,14 @@ def show_todolist(request):
         username = user.username
 
     data_task = Task.objects.filter(user=user)
+    form = TaskForm()
     
     context = {
         'data_task': data_task,
         'nama_user': username,
         'nama': 'Lyzander Marciano Andrylie',
-        'id': '2106750755'
+        'id': '2106750755',
+        'form': form,
     }
     return render(request, 'todolist.html', context)
 
@@ -72,6 +76,8 @@ def logout_user(request):
 
 def create_task(request):
     form = TaskForm()
+
+    print(request.POST)
 
     if request.method == 'POST':
         form = TaskForm(request.POST)
@@ -134,3 +140,31 @@ def show_json(request):
         data = Task.objects.all()
 
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+
+def add_todolist_item(request):
+    if request.method == 'POST':
+        form = TaskForm(request.POST)
+
+        if form.is_valid():
+            # Pembuatan objek dari model Task
+            user = request.user
+            date = datetime.datetime.now()
+
+            data = form.cleaned_data
+            title = data['judul_task']
+            description = data['deskripsi_task']
+
+            # Simpan objek dari model Task ke database
+            task = Task(user=user, date=date, title=title, description=description)
+            task.save()
+
+            # Mendapatkan objek dari database
+            task_set = Task.objects.filter(pk=task.pk)
+
+            # Mengubah objek menjadi format JSON
+            task_json = serializers.serialize('json', task_set)
+
+        # Mengembalikan task yang telah dibuat 
+        return HttpResponse(task_json, content_type="text/json")
+
+    return HttpResponseNotFound()
