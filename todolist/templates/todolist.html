@@ -25,14 +25,11 @@
       type: "GET",
       success: function(result) {
         console.log(result)
-        var openingDiv = '<div class="container-fluid d-flex flex-wrap justify-content-center">'
-        var closingDiv = '</div>'
 
-        var htmlString = openingDiv
+        var htmlString = ''
 
         for (let index = 0; index < result.length; index++) {
           var task = result[index].fields;
-          var pk = result[index].pk
 
           if (task.is_finished) {
             htmlString += `
@@ -58,11 +55,10 @@
             `
           }
         }
-
-        htmlString += "\n" + closingDiv;
-
-        $("div.todolist-card").append(htmlString)          
+        $("div#todolist-card").append(htmlString)          
       }
+
+      
     })
   })
 </script>
@@ -103,8 +99,8 @@
 <h2 class="text-center m-2">Task</h2>
 <div class="todolist-card"></div>
 
-<!-- <div class="container-fluid d-flex flex-wrap justify-content-center">
-    {% comment %} Add the data below this line {% endcomment %}
+<div class="container-fluid d-flex flex-wrap justify-content-center" id="todolist-card">
+    <!-- {% comment %} Add the data below this line {% endcomment %}
     {% for task in data_task %}
     {% if task.is_finished %}
     <div class="card text-bg-success m-3 done" style="width: 18rem;">
@@ -130,11 +126,11 @@
     </div>
 
     {% endif %}
-    {% endfor %}
-  </div> -->
+    {% endfor %} -->
+  </div>
 
   <div class="d-grid gap-2 col-6 mx-auto my-3">
-    <button class="btn btn-success"><a href="{% url 'todolist:create_task' %}" class="link-light">Tambah Task Baru</a></button>
+    <button class="btn btn-success"><a href="{% url 'todolist:create_task' %}" class="link-light">Tambah Task Baru pada Halaman Baru</a></button>
     <button class="btn btn-danger"><a href="{% url 'todolist:logout' %}" class="link-light">Logout</a></button>
   </div>
 
