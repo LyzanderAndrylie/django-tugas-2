@@ -126,6 +126,11 @@ def show_about(request):
     return render(request, "about.html")
 
 def show_json(request):
-    data = Task.objects.all()
+    user = request.user
+
+    if user.is_authenticated:
+        data = Task.objects.filter(user=user)
+    else:
+        data = Task.objects.all()
 
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
