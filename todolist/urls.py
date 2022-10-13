@@ -8,7 +8,7 @@ app_name = 'todolist'
 urlpatterns = [
     path('', show_todolist, name='show_todolist'),
     path('update/<int:id>', update_task, name='update_task'),
-    path('delete/<int:id>', delete_task, name='delete_task'),
+    # path('delete/<int:id>', delete_task, name='delete_task'),
     path('register/', register, name='register'),
     path('login/', login_user, name='login'),
     path('logout/', logout_user, name='logout'),
@@ -16,4 +16,5 @@ urlpatterns = [
     path('about/', show_about, name='show_about'),
     path('json/', show_json, name='show_json'),
     path('add/', add_todolist_item, name='add_todolist_item'),
+    path('delete/<int:id>', delete_todolist_item, name='delete_todolist_item'),
 ]

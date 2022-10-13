@@ -29,26 +29,29 @@
 
         for (let index = 0; index < result.length; index++) {
           var task = result[index].fields;
+          var pk = result[index].pk
 
           if (task.is_finished) {
             htmlString += `
-            <div class="card text-bg-success m-3 done" style="width: 18rem;">
+            <div class="card text-bg-success m-3 done" style="width: 18rem;" id=${pk}>
               <div class="card-body">
                 <h5 class="card-title">${task.title}</h5>
                 <h6 class="card-subtitle mb-2">${task.date}</h6>
                 <h6 class="card-subtitle mb-2">Selesai</h6>
                 <p class="card-text">${task.description}</p>
+                <button class="btn btn-secondary delete-task" id=${pk}>Hapus</button>
               </div>
             </div>
             `
           } else {
             htmlString += `
-            <div class="card text-bg-danger m-3 undone" style="width: 18rem;">
+            <div class="card text-bg-danger m-3 undone" style="width: 18rem;" id=${pk}>
               <div class="card-body">
                 <h5 class="card-title">${task.title}</h5>
                 <h6 class="card-subtitle mb-2">${task.date}</h6>
                 <h6 class="card-subtitle mb-2">Belum Selesai</h6>
                 <p class="card-text">${task.description}</p>
+                <button class="btn btn-secondary delete-task" id=${pk}>Hapus</button>
               </div>
             </div>
             `
@@ -70,26 +73,29 @@
           // Append
           var htmlString = "";
           var task = response[0].fields
+          var pk = response[0].pk
           
           if (task.is_finished) {
             htmlString = `
-            <div class="card text-bg-success m-3 done" style="width: 18rem;">
+            <div class="card text-bg-success m-3 done" style="width: 18rem;" id=${pk}>
               <div class="card-body">
                 <h5 class="card-title">${task.title}</h5>
                 <h6 class="card-subtitle mb-2">${task.date}</h6>
                 <h6 class="card-subtitle mb-2">Selesai</h6>
                 <p class="card-text">${task.description}</p>
+                <button class="btn btn-secondary delete-task" id=${pk}>Hapus</button>
                 </div>
                 </div>
                 `
               } else {
                 htmlString = `
-                <div class="card text-bg-danger m-3 undone" style="width: 18rem;">
+                <div class="card text-bg-danger m-3 undone" style="width: 18rem;" id=${pk}>
                   <div class="card-body">
                     <h5 class="card-title">${task.title}</h5>
                     <h6 class="card-subtitle mb-2">${task.date}</h6>
                     <h6 class="card-subtitle mb-2">Belum Selesai</h6>
                     <p class="card-text">${task.description}</p>
+                    <button class="btn btn-secondary delete-task" id=${pk}>Hapus</button>
                     </div>
                     </div>
                     `
@@ -100,6 +106,21 @@
       })      
     })
 
+    $(document).on('click', '.delete-task', function(){
+      console.log($(this))
+
+      var buttonReference = $(this)[0]
+      var buttonId = buttonReference.id
+
+      $.ajax({
+        type: "DELETE",
+        url: "{% url 'todolist:delete_todolist_item' id=0 %}".replace("0", buttonId),
+        success: function(response) {
+          $("div.card#0".replace("0", buttonId)).remove()
+        }
+      })
+      
+    });
     
 
   })
@@ -142,68 +163,72 @@
 <div class="todolist-card"></div>
 
 <div class="container-fluid d-flex flex-wrap justify-content-center" id="todolist-card">
-    <!-- {% comment %} Add the data below this line {% endcomment %}
-    {% for task in data_task %}
-    {% if task.is_finished %}
-    <div class="card text-bg-success m-3 done" style="width: 18rem;">
-      <div class="card-body">
-        <h5 class="card-title">{{task.title}}</h5>
-        <h6 class="card-subtitle mb-2">{{task.date}}</h6>
-        <h6 class="card-subtitle mb-2">Selesai</h6>
-        <p class="card-text">{{task.description}}</p>
-        <button class="btn btn-primary"><a href="{% url 'todolist:update_task' id=task.pk %}" class="link-light">Ubah</a></button>
-        <button class="btn btn-secondary"><a href="{% url 'todolist:delete_task' id=task.pk %}" class="link-light">Hapus</a></button>
-      </div>
-    </div>
-    {% else %}
-    <div class="card text-bg-danger m-3 undone" style="width: 18rem;">
-      <div class="card-body">
-        <h5 class="card-title">{{task.title}}</h5>
-        <h6 class="card-subtitle mb-2">{{task.date}}</h6>
-        <h6 class="card-subtitle mb-2">Belum Selesai</h6>
-        <p class="card-text">{{task.description}}</p>
-        <button class="btn btn-primary"><a href="{% url 'todolist:update_task' id=task.pk %}" class="link-light">Ubah</a></button>
-        <button class="btn btn-secondary"><a href="{% url 'todolist:delete_task' id=task.pk %}" class="link-light">Hapus</a></button>
-      </div>
-    </div>
+    
+</div>
 
-    {% endif %}
-    {% endfor %} -->
-  </div>
+<div class="d-grid gap-2 col-6 mx-auto my-3">
 
-  <div class="d-grid gap-2 col-6 mx-auto my-3">
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+    Add Task
+  </button>
 
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-      Add Task
-    </button>
-
-    <!-- Modal -->
-    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="staticBackdropLabel">Add Task</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+  <!-- Modal -->
+  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Add Task</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form method="POST" id="form-add-task">  
+            {% csrf_token %}  
+            <table>  
+                {{ form.as_table }}  
+            </table>  
           </div>
-          <div class="modal-body">
-            <form method="POST" id="form-add-task">  
-              {% csrf_token %}  
-              <table>  
-                  {{ form.as_table }}  
-              </table>  
-            </div>
-            <div class="modal-footer">
-              <button type="submit" class="btn btn-success" data-bs-dismiss="modal">Add</button>
-            </form>
-          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-success" data-bs-dismiss="modal">Add</button>
+          </form>
         </div>
       </div>
     </div>
-
-    <button class="btn btn-success"><a href="{% url 'todolist:create_task' %}" class="link-light">Tambah Task Baru pada Halaman Baru</a></button>
-    <button class="btn btn-danger"><a href="{% url 'todolist:logout' %}" class="link-light">Logout</a></button>
   </div>
+
+  <button class="btn btn-success"><a href="{% url 'todolist:create_task' %}" class="link-light">Tambah Task Baru pada Halaman Baru</a></button>
+  <button class="btn btn-danger"><a href="{% url 'todolist:logout' %}" class="link-light">Logout</a></button>
+</div>
 
 
 {% endblock content %}
+<!-- 
+<div class="container-fluid d-flex flex-wrap justify-content-center" id="todolist-card">
+  {% comment %} Add the data below this line {% endcomment %}
+  {% for task in data_task %}
+  {% if task.is_finished %}
+  <div class="card text-bg-success m-3 done" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">{{task.title}}</h5>
+      <h6 class="card-subtitle mb-2">{{task.date}}</h6>
+      <h6 class="card-subtitle mb-2">Selesai</h6>
+      <p class="card-text">{{task.description}}</p>
+      <button class="btn btn-primary"><a href="{% url 'todolist:update_task' id=task.pk %}" class="link-light">Ubah</a></button>
+      <button class="btn btn-secondary"><a href="{% url 'todolist:delete_task' id=task.pk %}" class="link-light">Hapus</a></button>
+    </div>
+  </div>
+  {% else %}
+  <div class="card text-bg-danger m-3 undone" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">{{task.title}}</h5>
+      <h6 class="card-subtitle mb-2">{{task.date}}</h6>
+      <h6 class="card-subtitle mb-2">Belum Selesai</h6>
+      <p class="card-text">{{task.description}}</p>
+      <button class="btn btn-primary"><a href="{% url 'todolist:update_task' id=task.pk %}" class="link-light">Ubah</a></button>
+      <button class="btn btn-secondary"><a href="{% url 'todolist:delete_task' id=task.pk %}" class="link-light">Hapus</a></button>
+    </div>
+  </div>
+
+  {% endif %}
+  {% endfor %}
+</div> -->

@@ -1,4 +1,5 @@
 from multiprocessing import context
+from os import stat
 from django.shortcuts import render
 
 from django.shortcuts import redirect
@@ -9,6 +10,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 
 from django.contrib.auth.decorators import login_required
+from urllib3 import HTTPResponse
 from todolist.models import Task
 
 import datetime
@@ -20,7 +22,7 @@ from todolist.forms import TaskForm
 from django.http import HttpResponse
 from django.core import serializers
 
-import json
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 @login_required(login_url='/todolist/login/')
@@ -167,4 +169,15 @@ def add_todolist_item(request):
         # Mengembalikan task yang telah dibuat 
         return HttpResponse(task_json, content_type="text/json")
 
+    return HttpResponseNotFound()
+
+@csrf_exempt
+def delete_todolist_item(request, id):
+    if request.method == 'DELETE':
+        print(id)
+        task = Task.objects.get(pk=id)
+        task.delete()
+
+        return HttpResponse('Deleted')
+    
     return HttpResponseNotFound()
